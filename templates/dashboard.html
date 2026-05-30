@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 40px 16px;
+        }
+
+        .card {
+            width: 320px;
+            border: 2px solid #b0b0b0;
+            border-radius: 6px;
+            background: #fff;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: #4dc9d6;
+            padding: 18px 0;
+            text-align: center;
+        }
+
+        .card-header h1 {
+            font-size: 1.55rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .card-body {
+            padding: 18px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .greeting {
+            font-size: 0.92rem;
+            text-align: center;
+            color: #222;
+        }
+
+        .section-label {
+            font-weight: bold;
+            font-size: 0.92rem;
+            color: #111;
+            margin-bottom: 8px;
+        }
+
+        /* --- year row: "- 2025/26 +" and "+ Add Year" side by side --- */
+        .year-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .year-control {
+            display: flex;
+            align-items: center;
+            border: 1px solid #b0b0b0;
+            border-radius: 20px;
+            overflow: hidden;
+            font-size: 0.82rem;
+        }
+
+        .year-control span {
+            padding: 5px 12px;
+            color: #222;
+            font-size: 0.82rem;
+            white-space: nowrap;
+        }
+
+        .year-control button {
+            background: none;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #444;
+        }
+
+        .year-control button:hover { background: #e8f7f9; }
+
+        .btn-add-year {
+            border: 1px solid #b0b0b0;
+            border-radius: 20px;
+            background: #fff;
+            padding: 5px 12px;
+            font-size: 0.82rem;
+            cursor: pointer;
+            color: #222;
+            white-space: nowrap;
+        }
+
+        .btn-add-year:hover { background: #e8f7f9; }
+
+        /* --- classes placeholder text --- */
+        .placeholder {
+            font-size: 0.85rem;
+            color: #555;
+        }
+
+        /* --- create buttons row --- */
+        .create-row {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .btn-create {
+            border: 1px solid #b0b0b0;
+            border-radius: 12px;
+            background: #fff;
+            padding: 7px 10px;
+            font-size: 0.78rem;
+            cursor: pointer;
+            color: #222;
+            text-align: center;
+        }
+
+        .btn-create:hover {
+            background: #4dc9d6;
+            color: #fff;
+            border-color: #4dc9d6;
+        }
+
+        /* --- flash messages --- */
+        .flash {
+            padding: 7px 10px;
+            border-radius: 5px;
+            font-size: 0.83rem;
+            text-align: center;
+        }
+        .flash.error   { background: #fde8e8; color: #c0392b; }
+        .flash.success { background: #e8fde8; color: #27ae60; }
+
+        /* --- logout link --- */
+        .logout-wrap {
+            text-align: right;
+        }
+
+        .logout-link {
+            font-size: 0.78rem;
+            color: #999;
+            text-decoration: none;
+        }
+
+        .logout-link:hover { color: #c0392b; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+
+    <div class="card-header">
+        <h1>Dashboard</h1>
+    </div>
+
+    <div class="card-body">
+
+        {% for category, message in get_flashed_messages(with_categories=True) %}
+            <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+
+        <p class="greeting">Hi, <strong>{{ username }}</strong>!</p>
+
+        <!-- Year selector -->
+        <div>
+            <p class="section-label">Select Year:</p>
+            <div class="year-row">
+                <div class="year-control">
+                    <button type="button">−</button>
+                    <span>2025/26</span>
+                    <button type="button">+</button>
+                </div>
+                <button class="btn-add-year" type="button">+ Add Year</button>
+            </div>
+        </div>
+
+        <!-- Classes -->
+        <div>
+            <p class="section-label">Classes:</p>
+            <p class="placeholder">No classes yet.</p>
+        </div>
+
+        <!-- Create buttons -->
+        <div>
+            <p class="section-label">Create:</p>
+            <div class="create-row">
+                <button class="btn-create" type="button">Class</button>
+                <button class="btn-create" type="button">Lesson</button>
+                <button class="btn-create" type="button">Answer Form</button>
+                <button class="btn-create" type="button">QR Code</button>
+            </div>
+        </div>
+
+        <div class="logout-wrap">
+            <a href="/logout" class="logout-link">Log out</a>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
