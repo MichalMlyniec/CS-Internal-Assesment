@@ -80,29 +80,16 @@
             white-space: nowrap;
         }
 
-        .year-control button {
-            background: none;
-            border: none;
+        .year-control a {
             padding: 5px 10px;
-            cursor: pointer;
             font-size: 0.9rem;
             color: #444;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
         }
 
-        .year-control button:hover { background: #e8f7f9; }
-
-        .btn-add-year {
-            border: 1px solid #b0b0b0;
-            border-radius: 20px;
-            background: #fff;
-            padding: 5px 12px;
-            font-size: 0.82rem;
-            cursor: pointer;
-            color: #222;
-            white-space: nowrap;
-        }
-
-        .btn-add-year:hover { background: #e8f7f9; }
+        .year-control a:hover { background: #e8f7f9; }
 
         /* --- classes placeholder text --- */
         .placeholder {
@@ -179,25 +166,32 @@
             <p class="section-label">Select Year:</p>
             <div class="year-row">
                 <div class="year-control">
-                    <button type="button">−</button>
-                    <span>2025/26</span>
-                    <button type="button">+</button>
+                    <a href="{{ url_for('dashboard', year=prev_year) }}">−</a>
+                    <span>{{ year }}</span>
+                    <a href="{{ url_for('dashboard', year=next_year) }}">+</a>
                 </div>
-                <button class="btn-add-year" type="button">+ Add Year</button>
             </div>
         </div>
 
         <!-- Classes -->
         <div>
             <p class="section-label">Classes:</p>
-            <p class="placeholder">No classes yet.</p>
+            <div class="pill-row" style="margin-top:8px;">
+                {% if classes %}
+                    {% for cls in classes %}
+                        <a href="#" class="btn-create">{{ cls.class_name }}</a>
+                    {% endfor %}
+                {% else %}
+                    <p class="placeholder">No classes yet.</p>
+                {% endif %}
+            </div>
         </div>
 
         <!-- Create buttons -->
         <div>
             <p class="section-label">Create:</p>
             <div class="create-row">
-                <button class="btn-create" type="button">Class</button>
+                <a href="{{ url_for('create_class_route') }}" class="btn-create">Class</a>
                 <button class="btn-create" type="button">Lesson</button>
                 <button class="btn-create" type="button">Answer Form</button>
                 <button class="btn-create" type="button">QR Code</button>

@@ -4,19 +4,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 DB_PATH = 'school_feedback.db'
 
 
-def init_db():
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS teachers (
-            teacher_id    INTEGER PRIMARY KEY AUTOINCREMENT,
-            username      TEXT    UNIQUE NOT NULL,
-            password_hash TEXT    NOT NULL
-        )
-    ''')
-    conn.commit()
-    conn.close()
-
 
 def register_teacher(username, password):
     conn = sqlite3.connect(DB_PATH)
